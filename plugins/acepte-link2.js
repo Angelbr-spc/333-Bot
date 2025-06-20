@@ -1,4 +1,4 @@
-// ©Créditos A Barboza
+// ©Créditos A Alejandro
 let handler = async (m, { conn, text }) => {
   // No Quites Los Créditos🚀
   m.react('⚙️');
@@ -22,7 +22,7 @@ let handler = async (m, { conn, text }) => {
   }
 
   const groupId = match[1];
-  const message = "〔🚀 *BARBOZA-BOT* 🚀〕\n\n*Enlace recibido correctamente.*";
+  const message = "〔🚀 *Alejandro-BOT* 🚀〕\n\n*Enlace recibido correctamente.*";
 
   try {
     // Acepta la invitación al grupo

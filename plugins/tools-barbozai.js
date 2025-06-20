@@ -3,7 +3,7 @@ import fetch from 'node-fetch';
 
 const handler = async (m, { conn, args }) => {
   if (!args[0]) {
-    return conn.reply(m.chat, '🤖 Por favor, proporciona un texto para generar la imagen.\nEjemplo: .barbozai Hola mundo', m);
+    return conn.reply(m.chat, '🤖 Por favor, proporciona un texto para generar la imagen.\nEjemplo: .Alejandroi Hola mundo', m);
   }
 
   const text = args.join(' ');
@@ -35,8 +35,8 @@ const handler = async (m, { conn, args }) => {
   }
 };
 
-handler.command = ['barbozai'];
-handler.help = ['barbozai <texto>'];
+handler.command = ['Alejandroi'];
+handler.help = ['Alejandroi <texto>'];
 handler.tags = ['image'];
 
 export default handler;

@@ -4,11 +4,11 @@ let handler = async (m, { conn, args, command, usedPrefix }) => {
   const text = args.join(" ");
   if (!text) {
     return m.reply(
-      `╭─⬣「 *Barboza AI* 」⬣
+      `╭─⬣「 *Alejandro AI* 」⬣
 │ ≡◦ 🎧 *Uso correcto del comando:*
 │ ≡◦ ${usedPrefix + command} shakira soltera
 ╰─⬣
-> © Barboza AI`
+> © Alejandro AI`
     );
   }
 
@@ -18,7 +18,7 @@ let handler = async (m, { conn, args, command, usedPrefix }) => {
 
     if (!json.status || !json.result || !json.result.downloadUrl) {
       return m.reply(
-        `╭─⬣「 *Barboza AI* 」⬣
+        `╭─⬣「 *Alejandro AI* 」⬣
 │ ≡◦ ❌ *No se encontró resultado para:* ${text}
 ╰─⬣`
       );
@@ -47,7 +47,7 @@ let handler = async (m, { conn, args, command, usedPrefix }) => {
   } catch (e) {
     console.log(e);
     return m.reply(
-      `╭─⬣「 *Barboza AI* 」⬣
+      `╭─⬣「 *Alejandro AI* 」⬣
 │ ≡◦ ⚠️ *Error al procesar la solicitud.*
 │ ≡◦ Intenta nuevamente más tarde.
 ╰─⬣`

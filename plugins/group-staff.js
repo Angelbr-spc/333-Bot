@@ -7,7 +7,7 @@ let handler = async (m, { conn }) => {
 ┃ 🌟 *Versión:* ${global.vs || "2.0"}
 ┃
 ┣━━━━━👑 *Propietario* ━━━━━┫
-┃ • *Nombre:* Barboza
+┃ • *Nombre:* Alejandro
 ┃ • *Rol:* 𝙿𝚛𝚘𝚙𝚒𝚎𝚝𝚊𝚛𝚒𝚘
 ┃ • *Número:* wa.me/584146277368
 ┃

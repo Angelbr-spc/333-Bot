@@ -9,7 +9,7 @@ let imagenes = ["https://files.catbox.moe/ltq7ph.jpg",
 
 let icono = imagenes[Math.floor(Math.random() * imagenes.length)]
 
-global.rcanal = {
+global. = {
  contextInfo: {
              isForwarded: true,
     forwardedNewsletterMessageInfo: {

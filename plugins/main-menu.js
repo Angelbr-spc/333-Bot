@@ -11,7 +11,7 @@ const clockString = ms => {
 const imagen = "https://files.catbox.moe/ltq7ph.jpg";
 
 const menuHeader = `
-╭─❒ 「 *📍 BARBOZA MD* 」
+╭─❒ 「 *📍 Alejandro MD* 」
 │ 👤 *Nombre:* %name
 │ 🎖 *Nivel:* %level | *XP:* %exp/%max
 │ 🔓 *Límite:* %limit | *Modo:* %mode
@@ -27,7 +27,7 @@ const menuFooter = `
 ╭─❒ 「 *📌 INFO FINAL* 」
 │ ⚠️ *Usa los comandos con el prefijo correspondiente.*
 
-> Creado por Barboza-Team
+> Creado por Alejandro-Team
 ╰❒
 `.trim();
 

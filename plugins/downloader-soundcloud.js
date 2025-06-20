@@ -104,7 +104,7 @@ const sendAudioNormal = async (conn, chat, audioUrl, videoTitle) => {
           contextInfo: {
             externalAdReply: {
               title: videoTitle,
-              body: 'Barboza Music',
+              body: 'Alejandro Music',
               previewType: 'PHOTO',
               thumbnail: thumbnailBuffer || null,
               mediaType: 1,
@@ -143,7 +143,7 @@ const handler = async (m, { conn, text, usedPrefix, command }) => {
       {
         contextInfo: {
           externalAdReply: {
-            title: 'Barboza Music',
+            title: 'Alejandro Music',
             previewType: 'PHOTO',
             thumbnail: thumbnailBuffer || null,
             mediaType: 1,
@@ -180,14 +180,14 @@ const handler = async (m, { conn, text, usedPrefix, command }) => {
       thumbnailBuffer = Buffer.from(response.data, 'binary');
     } catch {}
 
-    const description = `╭─⬣「 *Barboza-Ai* 」⬣
+    const description = `╭─⬣「 *Alejandro-Ai* 」⬣
 │  ≡◦ 🎵 Título ∙ ${title}
 │  ≡◦ ⏱ Duración ∙ ${duration || 'Desconocida'}
 │  ≡◦ 👀 Vistas ∙ ${views.toLocaleString()}
 │  ≡◦ 📅 Publicado ∙ ${ago || 'Desconocido'}
 │  ≡◦ 🔗 URL ∙ ${videoUrl}
 ╰─⬣
-> © Powered By Barboza™`;
+> © Powered By Alejandro™`;
 
     await conn.reply(
       m.chat,
@@ -197,7 +197,7 @@ const handler = async (m, { conn, text, usedPrefix, command }) => {
         contextInfo: {
           externalAdReply: {
             title: title,
-            body: 'Barboza Music',
+            body: 'Alejandro Music',
             previewType: 'PHOTO',
             thumbnail: thumbnailBuffer || null,
             mediaType: 1,
