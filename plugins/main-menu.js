@@ -8,7 +8,7 @@ const clockString = ms => {
   return [h, m, s].map(v => v.toString().padStart(2, '0')).join(':');
 };
 
-const imagen = "https://files.catbox.moe/ltq7ph.jpg";
+const imagen = "https://qu.ax/WhnpY.jpg";
 
 const menuHeader = `
 ╭─❒ 「 *📍 Alejandro MD* 」
