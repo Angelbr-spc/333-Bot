@@ -1,74 +1,45 @@
-import { generateWAMessageFromContent } from '@whiskeysockets/baileys';
-import * as fs from 'fs';
+const handler = async (m, { conn, text, participants }) => {
+  const users = participants.map(p => p.id);
+  const commandUsed = m.text?.split(' ')[0] || '';
+  const mensaje = text?.replace(new RegExp(`^${commandUsed}`, 'i'), '').trim();
 
-const handler = async (m, { conn, text, participants, isOwner, isAdmin }) => {
-  try {
-    const users = participants.map((u) => conn.decodeJid(u.id));
-    const watermark = '\n\n> _BOT- 𝐳𝐳𝐳 🌪️_';
-
-    const q = m.quoted ? m.quoted : m || m.text || m.sender;
-    const c = m.quoted ? await m.getQuotedObj() : m.msg || m.text || m.sender;
-    const msg = conn.cMod(
-      m.chat,
-      generateWAMessageFromContent(
-        m.chat,
-        { [m.quoted ? q.mtype : 'extendedTextMessage']: m.quoted ? c.message[q.mtype] : { text: '' || c } },
-        { quoted: m, userJid: conn.user.id }
-      ),
-      (text || q.text) + watermark,
-      conn.user.jid,
-      { mentions: users }
-    );
-
-    await conn.relayMessage(m.chat, msg.message, { messageId: msg.key.id });
-  } catch {
-    const users = participants.map((u) => conn.decodeJid(u.id));
-    const quoted = m.quoted ? m.quoted : m;
+  if (m.quoted) {
+    const quoted = m.quoted;
     const mime = (quoted.msg || quoted).mimetype || '';
     const isMedia = /image|video|sticker|audio/.test(mime);
-    const watermark = '\n\n> BOT - 𝐳𝐳𝐳';
+    const options = { mentions: users, quoted: m };
 
     if (isMedia) {
-      const mediax = await quoted.download?.();
-      const options = { mentions: users, quoted: m };
-
-      if (quoted.mtype === 'imageMessage') {
-        conn.sendMessage(m.chat, { image: mediax, caption: (text || '') + watermark, ...options });
-      } else if (quoted.mtype === 'videoMessage') {
-        conn.sendMessage(m.chat, { video: mediax, caption: (text || '') + watermark, mimetype: 'video/mp4', ...options });
-      } else if (quoted.mtype === 'audioMessage') {
-        conn.sendMessage(m.chat, { audio: mediax, caption: watermark, mimetype: 'audio/mpeg', fileName: `Hidetag.mp3`, ...options });
-      } else if (quoted.mtype === 'stickerMessage') {
-        conn.sendMessage(m.chat, { sticker: mediax, ...options });
+      const media = await quoted.download();
+      if (/image/.test(mime)) {
+        return await conn.sendMessage(m.chat, { image: media, caption: mensaje, ...options });
+      } else if (/video/.test(mime)) {
+        return await conn.sendMessage(m.chat, { video: media, caption: mensaje, mimetype: 'video/mp4', ...options });
+      } else if (/audio/.test(mime)) {
+        return await conn.sendMessage(m.chat, { audio: media, mimetype: 'audio/mpeg', ptt: true, ...options });
+      } else if (/sticker/.test(mime)) {
+        return await conn.sendMessage(m.chat, { sticker: media, ...options });
       }
     } else {
-      const more = String.fromCharCode(8206);
-      const masss = more.repeat(850) + watermark;
-
-      await conn.relayMessage(
-        m.chat,
-        {
-          extendedTextMessage: {
-            text: `${masss}`,
-            contextInfo: {
-              mentionedJid: users,
-              externalAdReply: {
-                thumbnail: 'https://telegra.ph/file/03d1e7fc24e1a72c60714.jpg',
-                sourceUrl: global.canal
-              }
-            }
-          }
-        },
-        {}
-      );
+      // 💬 Si el citado es texto plano
+      const citado = quoted.text || quoted.body || mensaje;
+      return await conn.sendMessage(m.chat, { text: citado || mensaje, mentions: users }, options);
     }
   }
+
+  // Si no hay mensaje citado, pero hay texto
+  if (!mensaje) return;
+
+  await conn.sendMessage(m.chat, {
+    text: mensaje,
+    mentions: users
+  }, { quoted: m });
 };
 
 handler.help = ['hidetag'];
 handler.tags = ['group'];
-handler.command = /^(hidetag|notify|notificar|noti|n|hidetah|hidet)$/i;
+handler.command = /^(hidetag|notify|noti|notificar|n)$/i;
 handler.group = true;
-handler.Botadmin = true;
+handler.botAdmin = true;
 
 export default handler;
