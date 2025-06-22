@@ -1,45 +1,102 @@
-const handler = async (m, { conn, text, participants }) => {
-  const users = participants.map(p => p.id);
-  const commandUsed = m.text?.split(' ')[0] || '';
-  const mensaje = text?.replace(new RegExp(`^${commandUsed}`, 'i'), '').trim();
+import {generateWAMessageFromContent} from '@whiskeysockets/baileys';
+import * as fs from 'fs';
 
-  if (m.quoted) {
-    const quoted = m.quoted;
+const handler = async (m, {conn, text, participants, isOwner, isAdmin}) => {
+  try {
+    const users = participants.map((u) => conn.decodeJid(u.id));
+    const q = m.quoted ? m.quoted : m || m.text || m.sender;
+    const c = m.quoted ? await m.getQuotedObj() : m.msg || m.text || m.sender;
+
+    const content = {
+      [m.quoted ? q.mtype : 'extendedTextMessage']: m.quoted
+        ? {
+            ...c.message[q.mtype],
+            contextInfo: {
+              ...(c.message[q.mtype]?.contextInfo || {}),
+              mentionedJid: users
+            }
+          }
+        : {
+            text: '' || c,
+            contextInfo: {
+              mentionedJid: users
+            }
+          }
+    };
+
+    const msg = conn.cMod(
+      m.chat,
+      generateWAMessageFromContent(m.chat, content, {
+        quoted: m,
+        userJid: conn.user.id
+      }),
+      text || q.text,
+      conn.user.jid,
+      {mentions: users}
+    );
+    await conn.relayMessage(m.chat, msg.message, {messageId: msg.key.id});
+  } catch {
+    const users = participants.map((u) => conn.decodeJid(u.id));
+    const quoted = m.quoted ? m.quoted : m;
     const mime = (quoted.msg || quoted).mimetype || '';
     const isMedia = /image|video|sticker|audio/.test(mime);
-    const options = { mentions: users, quoted: m };
+    const more = String.fromCharCode(8206);
+    const masss = more.repeat(850);
+    const htextos = `${text ? text : ''}`;
 
-    if (isMedia) {
-      const media = await quoted.download();
-      if (/image/.test(mime)) {
-        return await conn.sendMessage(m.chat, { image: media, caption: mensaje, ...options });
-      } else if (/video/.test(mime)) {
-        return await conn.sendMessage(m.chat, { video: media, caption: mensaje, mimetype: 'video/mp4', ...options });
-      } else if (/audio/.test(mime)) {
-        return await conn.sendMessage(m.chat, { audio: media, mimetype: 'audio/mpeg', ptt: true, ...options });
-      } else if (/sticker/.test(mime)) {
-        return await conn.sendMessage(m.chat, { sticker: media, ...options });
-      }
+    if ((isMedia && quoted.mtype === 'imageMessage') && htextos) {
+      var mediax = await quoted.download?.();
+      conn.sendMessage(
+        m.chat,
+        {image: mediax, mentions: users, caption: htextos},
+        {quoted: m}
+      );
+    } else if ((isMedia && quoted.mtype === 'videoMessage') && htextos) {
+      var mediax = await quoted.download?.();
+      conn.sendMessage(
+        m.chat,
+        {video: mediax, mentions: users, mimetype: 'video/mp4', caption: htextos},
+        {quoted: m}
+      );
+    } else if ((isMedia && quoted.mtype === 'audioMessage') && htextos) {
+      var mediax = await quoted.download?.();
+      conn.sendMessage(
+        m.chat,
+        {audio: mediax, mentions: users, mimetype: 'audio/mpeg', fileName: `Hidetag.mp3`},
+        {quoted: m}
+      );
+    } else if ((isMedia && quoted.mtype === 'stickerMessage') && htextos) {
+      var mediax = await quoted.download?.();
+      conn.sendMessage(
+        m.chat,
+        {sticker: mediax, mentions: users},
+        {quoted: m}
+      );
     } else {
-      // 💬 Si el citado es texto plano
-      const citado = quoted.text || quoted.body || mensaje;
-      return await conn.sendMessage(m.chat, { text: citado || mensaje, mentions: users }, options);
+      await conn.relayMessage(
+        m.chat,
+        {
+          extendedTextMessage: {
+            text: `${masss}\n${htextos}\n`,
+            contextInfo: {
+              mentionedJid: users,
+              externalAdReply: {
+                thumbnail: 'https://telegra.ph/file/03d1e7fc24e1a72c60714.jpg',
+                sourceUrl: global.canal
+              }
+            }
+          }
+        },
+        {}
+      );
     }
   }
-
-  // Si no hay mensaje citado, pero hay texto
-  if (!mensaje) return;
-
-  await conn.sendMessage(m.chat, {
-    text: mensaje,
-    mentions: users
-  }, { quoted: m });
 };
 
 handler.help = ['hidetag'];
 handler.tags = ['group'];
-handler.command = /^(hidetag|notify|noti|notificar|n)$/i;
+handler.command = /^(hidetag|notify|notificar|noti|n|hidetah|hidet)$/i;
 handler.group = true;
-handler.botAdmin = true;
+handler.admin = true;
 
 export default handler;
