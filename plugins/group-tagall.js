@@ -13,7 +13,7 @@ const handler = async (m, { conn, participants, isAdmin, isOwner }) => {
   let textoFinal = `🗣️ 𝐈𝐍𝐕𝐎𝐂𝐀𝐍𝐃𝐎 𝐌𝐀𝐌𝐔𝐓𝐒 🗣️\n\n𝐀𝐕𝐈𝐒𝐎: ${mensaje || ''}\n\n`;
 
   for (const user of participants) {
-    textoFinal += `👑 @${user.id.split('@')[0]}\n`;
+    textoFinal += `👤 @${user.id.split('@')[0]}\n`;
   }
 
   textoFinal += `\n${wm}`;
