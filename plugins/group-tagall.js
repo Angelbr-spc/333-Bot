@@ -10,7 +10,7 @@ const handler = async (m, { conn, participants, isAdmin, isOwner }) => {
   const comando = texto.split(' ')[0].replace(/^./, ''); // quita punto si tiene
   const mensaje = texto.replace(/^(\.|)(tagall|invocar|invocacion|invocación|todos|talibanes)/i, '').trim();
 
-  let textoFinal = `🗣️ 𝐈𝐍𝐕𝐎𝐂𝐀𝐍𝐃𝐎 𝐌𝐀𝐌𝐔𝐓𝐒 🗣️\n\n𝐀𝐕𝐈𝐒𝐎: ${mensaje || ''}\n\n`;
+  let textoFinal = `🗣️ 𝐈𝐍𝐕𝐎𝐂𝐀𝐍𝐃𝐎 𝐌𝐄𝐌𝐄𝐒 🗣️\n\n𝐀𝐕𝐈𝐒𝐎: ${mensaje || ''}\n\n`;
 
   for (const user of participants) {
     textoFinal += `👤 @${user.id.split('@')[0]}\n`;
