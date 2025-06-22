@@ -6,13 +6,13 @@
 import PhoneNumber from 'awesome-phonenumber';
 
 let handler = async (m, { conn }) => {
-  m.react('🗣️');
+  m.react('⚔️');
 
 const imageUrl = 'https://qu.ax/FxpUy.jpg'
-  const numCreador = '573206095607';
+  const numCreador = '573103549863';
   const ownerJid = numCreador + '@s.whatsapp.net';
   const name = await conn.getName(ownerJid) || 'Alee';
-  const about = (await conn.fetchStatus(ownerJid).catch(() => {}))?.status || `𝐒𝐨𝐲 𝐀𝐥𝐞𝐞, 𝐃𝐮𝐞𝐧̃𝐨 𝐝𝐞𝐥 𝐁𝐨𝐭 𝐀𝐥𝐞𝐞 👑.`;
+  const about = (await conn.fetchStatus(ownerJid).catch(() => {}))?.status || `𝐒𝐨𝐲 𝐀𝐥𝐞𝐣𝐚𝐧𝐝𝐫𝐨, 𝐃𝐮𝐞𝐧̃𝐨 𝐝𝐞𝐥 𝐁𝐨𝐭 𝐙𝐳𝐳 ⚔️.`;
   const empresa = '𝐀𝐥𝐞𝐞 - 𝐒𝐞𝐫𝐯𝐢𝐜𝐢𝐨𝐬 𝐭𝐞𝐜𝐧𝐨𝐥𝐨𝐠𝐢𝐜𝐨𝐬';
 
   const vcard = `
