@@ -13,7 +13,7 @@ const imageUrl = 'https://qu.ax/WhnpY.jpg'
   const ownerJid = numCreador + '@s.whatsapp.net';
   const name = await conn.getName(ownerJid) || 'Alee';
   const about = (await conn.fetchStatus(ownerJid).catch(() => {}))?.status || `𝐒𝐨𝐲 𝐀𝐥𝐞𝐣𝐚𝐧𝐝𝐫𝐨, 𝐃𝐮𝐞𝐧̃𝐨 𝐝𝐞𝐥 𝐁𝐨𝐭 𝐙𝐳𝐳 ⚔️.`;
-  const empresa = '𝐀𝐥𝐞𝐞 - 𝐒𝐞𝐫𝐯𝐢𝐜𝐢𝐨𝐬 𝐭𝐞𝐜𝐧𝐨𝐥𝐨𝐠𝐢𝐜𝐨𝐬';
+  const empresa = '𝐀𝐥𝐞𝐣𝐚𝐧𝐝𝐫𝐨 - 𝐒𝐞𝐫𝐯𝐢𝐜𝐢𝐨𝐬 𝐭𝐞𝐜𝐧𝐨𝐥𝐨𝐠𝐢𝐜𝐨𝐬';
 
   const vcard = `
 BEGIN:VCARD
@@ -55,7 +55,7 @@ END:VCARD`.trim();
         externalAdReply: {
           title: textbot,
           body: dev,
-          thumbnailUrl: 'https://qu.ax/FxpUy.jpg',
+          thumbnailUrl: 'https://qu.ax/WhnpY.jpg',
           sourceUrl: 'oo',
           mediaType: 1,
           showAdAttribution: true,
