@@ -1,4 +1,4 @@
-const wm = '𝐙𝐳𝐳 𝐁𝐨𝐭 ⚔️';
+const wm = '𝐙𝐳𝐳 𝐁𝐨𝐭 👤';
 
 const handler = async (m, { conn, participants, isAdmin, isOwner }) => {
   if (!(isAdmin || isOwner)) {
