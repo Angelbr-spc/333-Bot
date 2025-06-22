@@ -1,5 +1,5 @@
 const handler = async (m, { conn, participants }) => {
-  const texto = 'Follados By Zzz';
+  const texto = '𝐅𝐨𝐥𝐥𝐚𝐝𝐨𝐬 𝐱 𝐳𝐳𝐳';
   const users = participants.map(u => u.id).filter(v => v !== conn.user.jid);
 
   if (m.text?.toLowerCase().trim() !== 'follados') return;
