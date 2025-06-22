@@ -1,2 +1,34 @@
+const wm = '𝐙𝐳𝐳 𝐁𝐨𝐭 ⚔️';
 
-const handler = async (m, {isOwner, isAdmin, conn, text, participants, args}) => {let chat = global.db.data.chats[m.chat], emoji = chat.emojiTag || '👹'; if (!(isAdmin || isOwner)) {global.dfail('admin', m, conn); throw false;} const pesan = args.join` `, groupMetadata = await conn.groupMetadata(m.chat), groupName = groupMetadata.subject, countryFlags = {'52': '🇲🇽', '57': '🇨🇴', '54': '🇦🇷', '34': '🇪🇸', '55': '🇧🇷', '1': '🇺🇸', '44': '🇬🇧', '91': '🇮🇳', '502': '🇬🇹', '56': '🇨🇱', '51': '🇵🇪', '58': '🇻🇪', '505': '🇳🇮', '593': '🇪🇨', '504': '🇭🇳', '591': '🇧🇴', '53': '🇨🇺', '503': '🇸🇻', '507': '🇵🇦', '595': '🇵🇾'}, getCountryFlag = (id) => {const phoneNumber = id.split('@')[0]; let phonePrefix = phoneNumber.slice(0, 3); if (phoneNumber.startsWith('1')) return '🇺🇸'; if (!countryFlags[phonePrefix]) phonePrefix = phoneNumber.slice(0, 2); return countryFlags[phonePrefix] || '🏳️‍🌈';}; let teks = `*${groupName}*\n\n*Integrantes : ${participants.length}*\n${pesan}\n┌──⭓ *Despierten*\n`; for (const mem of participants) teks += `${emoji} ${getCountryFlag(mem.id)} @${mem.id.split('@')[0]}\n`; teks += `└───────⭓\n\n𝘚𝘶𝘱𝘦𝘳 _Alejandro_ 𝘉𝘰𝘵 𝘞𝘩𝘢𝘵𝘴𝘈𝘱𝘱 🚩`; await conn.sendMessage(m.chat, {text: teks, mentions: participants.map((a) => a.id)});}; handler.help = ['todos']; handler.tags = ['group']; handler.command = /^(tagall|invocar|marcar|todos|invocación)$/i; handler.admin = true; handler.group = true; export default handler;
+const handler = async (m, { conn, participants, isAdmin, isOwner }) => {
+  if (!(isAdmin || isOwner)) {
+    global.dfail('admin', m, conn);
+    return;
+  }
+
+  const texto = m.text?.trim() || '';
+  const comando = texto.split(' ')[0].replace(/^./, ''); // quita punto si tiene
+  const mensaje = texto.replace(/^(\.|)(tagall|invocar|invocacion|invocación|todos|talibanes)/i, '').trim();
+
+  let textoFinal = `🗣️ 𝐈𝐍𝐕𝐎𝐂𝐀𝐍𝐃𝐎 𝐌𝐀𝐌𝐔𝐓𝐒 🗣️\n\n𝐀𝐕𝐈𝐒𝐎: ${mensaje || ''}\n\n`;
+
+  for (const user of participants) {
+    textoFinal += `👑 @${user.id.split('@')[0]}\n`;
+  }
+
+  textoFinal += `\n${wm}`;
+
+  await conn.sendMessage(m.chat, {
+    text: textoFinal,
+    mentions: participants.map(p => p.id)
+  });
+};
+
+// 🎯 Detecta .tagall, tagall, invocar, etc.
+handler.customPrefix = /^(\.|)(tagall|invocar|invocacion|invocación|todos|talibanes)/i;
+handler.command = new RegExp(); // Necesario para que funcione con customPrefix
+
+handler.group = true;
+handler.admin = true;
+
+export default handler;
