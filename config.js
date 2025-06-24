@@ -12,7 +12,7 @@ import axios from 'axios'
   [ '573103549863', 'Alejandro', true ],
   [ '5217227584934', 'Angel', true ],
   [ '50663333336', 'nose', true ],
-  [ '5212431268546', "I'm Fz ~", true ],
+  [ '46737682251', "I'm Fz ~", true ],
   [ '24580450156657', true ],
   [ '51928626068', "MediaHub",true ],
   [ '172056423456949', true ]
