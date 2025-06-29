@@ -2,7 +2,8 @@ import { downloadMediaMessage } from '@whiskeysockets/baileys';
 
 const handler = async (m, { conn }) => {
   if (!m.quoted) throw '❌ Responde a un sticker con *.img*';
-  if (!m.quoted.mimetype || !/webp/.test(m.quoted.mimetype)) throw '❌ Solo puedes usar esto con un sticker (webp)';
+  const mime = m.quoted.mimetype || '';
+  if (!/webp/.test(mime)) throw '❌ Eso no es un sticker válido.';
 
   try {
     const buffer = await downloadMediaMessage(
@@ -12,7 +13,7 @@ const handler = async (m, { conn }) => {
       { reuploadRequest: conn.fetchMsg }
     );
 
-    if (!buffer) throw '⚠️ No se pudo descargar el sticker.';
+    if (!buffer) throw new Error('Buffer vacío al intentar descargar el sticker');
 
     await conn.sendMessage(m.chat, {
       image: buffer,
@@ -20,8 +21,8 @@ const handler = async (m, { conn }) => {
     }, { quoted: m });
 
   } catch (e) {
-    console.error(e);
-    throw '❌ Ocurrió un error al convertir el sticker.';
+    console.error('[ERROR EN .IMG]', e); // 👈 esto saldrá en consola
+    throw '❌ Ocurrió un error al convertir el sticker. Asegúrate de responder a un sticker reciente y estático.';
   }
 };
 
