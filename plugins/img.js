@@ -1,26 +1,33 @@
-const { downloadMediaMessage } = require('@whiskeysockets/baileys');
+import { downloadMediaMessage } from '@whiskeysockets/baileys';
 
-async function handler(m, { conn, text, usedPrefix, command }) {
-  if (!m.quoted) throw 'Responde a un sticker con el comando .img';
-
-  const mime = m.quoted.mimetype || '';
-  if (!/webp/.test(mime)) throw 'Solo puedes usar esto en stickers (webp).';
+const handler = async (m, { conn }) => {
+  if (!m.quoted) throw '❌ Responde a un sticker con *.img*';
+  if (!m.quoted.mimetype || !/webp/.test(m.quoted.mimetype)) throw '❌ Solo puedes usar esto con un sticker (webp)';
 
   try {
-    const imgBuffer = await downloadMediaMessage(m.quoted, 'buffer', {}, { reuploadRequest: conn.fetchMsg });
-    if (!imgBuffer) throw 'No se pudo descargar el sticker.';
+    const buffer = await downloadMediaMessage(
+      m.quoted,
+      'buffer',
+      {},
+      { reuploadRequest: conn.fetchMsg }
+    );
 
-    await conn.sendMessage(m.chat, { image: imgBuffer, caption: 'Aquí está tu sticker en imagen 🖼️' }, { quoted: m });
+    if (!buffer) throw '⚠️ No se pudo descargar el sticker.';
+
+    await conn.sendMessage(m.chat, {
+      image: buffer,
+      caption: '✅ Aquí tienes la imagen del sticker 🖼️'
+    }, { quoted: m });
 
   } catch (e) {
     console.error(e);
-    throw 'Ocurrió un error al convertir el sticker a imagen.';
+    throw '❌ Ocurrió un error al convertir el sticker.';
   }
-}
+};
 
 handler.command = /^img$/i;
 handler.help = ['img'];
 handler.tags = ['tools'];
-handler.premium = false;
+handler.register = true;
 
 export default handler;
