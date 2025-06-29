@@ -51,8 +51,8 @@ export default handler
 
 const adReply = {
   externalAdReply: {
-    title: "𝐀𝐧𝐠𝐞𝐥 𝐁𝐨𝐭 𝐃𝐞𝐥𝐚𝐲",
-    body: "𝐀𝐧𝐠𝐞𝐥 𝐁𝐨𝐭 𝐃𝐞𝐥𝐚𝐲",
+    title: "𝐙𝐳𝐳 𝐁𝐨𝐭",
+    body: "𝐙𝐳𝐳 𝐁𝐨𝐭",
     thumbnailUrl: "https://qu.ax/WhnpY.jpg",
     sourceUrl: '',
     mediaType: 1,
