@@ -53,7 +53,7 @@ const adReply = {
   externalAdReply: {
     title: "𝐀𝐧𝐠𝐞𝐥 𝐁𝐨𝐭 𝐃𝐞𝐥𝐚𝐲",
     body: "𝐀𝐧𝐠𝐞𝐥 𝐁𝐨𝐭 𝐃𝐞𝐥𝐚𝐲",
-    thumbnailUrl: "https://qu.ax/JRCMQ.jpg",
+    thumbnailUrl: "https://qu.ax/WhnpY.jpg",
     sourceUrl: '',
     mediaType: 1,
     renderLargerThumbnail: false
